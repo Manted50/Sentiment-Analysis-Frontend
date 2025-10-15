@@ -121,6 +121,6 @@ if explain_btn:
             display_explanation(data)
         else:
             st.error(f"Erreur API : {response.status_code}")
+
 if delete_btn:
     st.session_state.tweet_text = ""
-    st.experimental_rerun()
