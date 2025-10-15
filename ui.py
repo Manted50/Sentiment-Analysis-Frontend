@@ -26,7 +26,8 @@ for i, example in enumerate(example_tweets):
         st.session_state.tweet_text = example
 
 # Ensure the session state is updated before the widget is created
-tweet_text = st.session_state.tweet_text
+if "tweet_text" not in st.session_state:
+    st.session_state.tweet_text = ""
 
 # Titre principal
 st.title("📝 Analyseur de sentiment")
@@ -120,6 +121,6 @@ if explain_btn:
             display_explanation(data)
         else:
             st.error(f"Erreur API : {response.status_code}")
-
 if delete_btn:
     st.session_state.tweet_text = ""
+    st.experimental_rerun()
