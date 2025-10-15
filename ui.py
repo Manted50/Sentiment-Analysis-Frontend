@@ -119,5 +119,4 @@ if explain_btn:
             st.error(f"Erreur API : {response.status_code}")
 
 if delete_btn:
-    st.session_state.tweet_text = ""
-    st.experimental_rerun()  # This will refresh the app and update the text area
+    st.session_state["msg"] = ''
