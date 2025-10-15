@@ -3,7 +3,6 @@ import requests
 import plotly.express as px
 
 API_URL = "http://localhost:8000"
-#API_URL = "https://manted50.pythonanywhere.com"
 
 # Sidebar content
 st.sidebar.title("ℹ️ About")
@@ -122,4 +121,3 @@ if explain_btn:
 
 if cancel_btn:
     st.session_state.tweet_text = ""
-    st.experimental_rerun()
