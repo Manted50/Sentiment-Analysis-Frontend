@@ -25,6 +25,9 @@ for i, example in enumerate(example_tweets):
     if st.sidebar.button(f"Exemple {i + 1}"):
         st.session_state.tweet_text = example
 
+# Ensure the session state is updated before the widget is created
+tweet_text = st.session_state.tweet_text
+
 # Titre principal
 st.title("📝 Analyseur de sentiment")
 
