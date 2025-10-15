@@ -2,14 +2,14 @@ import streamlit as st
 import requests
 import plotly.express as px
 
-API_URL = "http://localhost:8000"
+#API_URL = "http://localhost:8000"
 
-# Sidebar content
-st.sidebar.title("ℹ️ About")
-st.sidebar.write("This app analyzes the sentiment of a given text (positive or negative) using a machine learning model.")
-st.sidebar.write("You can also get an explanation of the model's decision using LIME.")
+# Onglet
+st.sidebar.title("ℹ️ Informations")
+st.sidebar.write("Cette application analyse le sentiment d'un texte donné (positif ou négatif) à l'aide d'un modèle d'apprentissage automatique.")
+st.sidebar.write("Vous pouvez également obtenir une explication de la décision du modèle à l'aide de LIME.")
 
-st.sidebar.write("### Examples:")
+st.sidebar.write("### Exemples :")
 example_tweets = [
     "I love this product! It's amazing.",
     "This is the worst experience I've ever had.",
@@ -18,12 +18,12 @@ example_tweets = [
     "I regret buying this, it's awful."
 ]
 
-selected_example = st.sidebar.selectbox("Choose an example:", [""] + example_tweets)
+selected_example = st.sidebar.selectbox("Choisissez un exemple :", [""] + example_tweets)
 if selected_example:
     st.session_state.tweet_text = selected_example
 
-# Main content
-st.title("📝 Sentiment Analyzer")
+# Titre principal
+st.title("📝 Analyseur de sentiment")
 
 if "tweet_text" not in st.session_state:
     st.session_state.tweet_text = ""
@@ -44,9 +44,9 @@ with col2:
     explain_btn = st.button("🔍 Expliquer avec LIME")
 
 with col3:
-    cancel_btn = st.button("❌ Annuler")
+    cancel_btn = st.button("❌ Effacer")
 
-# Appel API
+# Fonctions utilitaires
 def call_prediction_api(text):
     response = requests.post(
         f"{API_URL}/predict",
@@ -63,7 +63,6 @@ def call_explain_api(text):
     )
     return response
 
-# Affichage des résultats
 def display_prediction(data):
     sentiment = data.get("sentiment", "")
     confidence = data.get("confidence", 0)
@@ -96,7 +95,7 @@ def display_explanation(data):
         st.write("### Explication LIME (HTML)")
         st.components.v1.html(html_expl, height=400, scrolling=True)
 
-# Buttons actions
+# Gestion des boutons
 if predict_btn:
     if not tweet_text:
         st.warning("Veuillez entrer du texte.")
