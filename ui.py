@@ -28,11 +28,15 @@ for i, example in enumerate(example_tweets):
 # Titre principal
 st.title("📝 Analyseur de sentiment")
 
+def update_tweet_text():
+    st.session_state.tweet_text = st.session_state.tweet_text
+
 st.text_area(
     "Entrez votre texte (max 280 caractères) :",
     max_chars=280,
     placeholder="Tapez votre texte ici...",
-    key="tweet_text"
+    key="tweet_text",
+    on_change=update_tweet_text
 )
 
 col1, col2, col3 = st.columns([1, 1, 1])
