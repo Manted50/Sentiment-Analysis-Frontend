@@ -28,9 +28,8 @@ st.title("📝 Analyseur de sentiment")
 if "tweet_text" not in st.session_state:
     st.session_state.tweet_text = ""
 
-st.text_area(
+tweet_text = st.text_area(
     "Entrez votre texte (max 280 caractères) :",
-    key="tweet_text",
     max_chars=280,
     placeholder="Tapez votre texte ici..."
 )
@@ -45,10 +44,6 @@ with col2:
 
 with col3:
     delete_btn = st.button("❌ Effacer")
-
-if delete_btn:
-    st.session_state.tweet_text = ""
-    st.rerun()
 
 # Fonctions utilitaires
 def call_prediction_api(text):
@@ -101,10 +96,10 @@ def display_explanation(data):
 
 # Gestion des boutons
 if predict_btn:
-    if not st.session_state.tweet_text:
+    if not tweet_text:
         st.warning("Veuillez entrer du texte.")
     else:
-        response = call_prediction_api(st.session_state.tweet_text)
+        response = call_prediction_api(tweet_text)
         if response.status_code == 200:
             data = response.json()
             display_prediction(data)
@@ -112,12 +107,15 @@ if predict_btn:
             st.error(f"Erreur API : {response.status_code}")
 
 if explain_btn:
-    if not st.session_state.tweet_text:
+    if not tweet_text:
         st.warning("Veuillez entrer du texte.")
     else:
-        response = call_explain_api(st.session_state.tweet_text)
+        response = call_explain_api(tweet_text)
         if response.status_code == 200:
             data = response.json()
             display_explanation(data)
         else:
             st.error(f"Erreur API : {response.status_code}")
+
+if delete_btn:
+    st.session_state.tweet_text = ""
