@@ -30,7 +30,6 @@ if "tweet_text" not in st.session_state:
 
 tweet_text = st.text_area(
     "Entrez votre texte (max 280 caractères) :",
-    value=st.session_state.tweet_text,
     max_chars=280,
     placeholder="Tapez votre texte ici..."
 )
@@ -119,4 +118,4 @@ if explain_btn:
             st.error(f"Erreur API : {response.status_code}")
 
 if delete_btn:
-    st.session_state.tweet_text = st.empty()
+    st.session_state.tweet_text = ""
