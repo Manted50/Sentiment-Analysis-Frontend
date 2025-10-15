@@ -18,6 +18,9 @@ example_tweets = [
     "I regret buying this, it's awful."
 ]
 
+if "tweet_text" not in st.session_state:
+    st.session_state.tweet_text = ""
+
 for i, example in enumerate(example_tweets):
     if st.sidebar.button(f"Exemple {i + 1}"):
         st.session_state.tweet_text = example
@@ -25,13 +28,11 @@ for i, example in enumerate(example_tweets):
 # Titre principal
 st.title("📝 Analyseur de sentiment")
 
-if "tweet_text" not in st.session_state:
-    st.session_state.tweet_text = ""
-
-tweet_text = st.text_area(
+st.text_area(
     "Entrez votre texte (max 280 caractères) :",
     max_chars=280,
-    placeholder="Tapez votre texte ici..."
+    placeholder="Tapez votre texte ici...",
+    key="tweet_text"
 )
 
 col1, col2, col3 = st.columns([1, 1, 1])
@@ -96,10 +97,10 @@ def display_explanation(data):
 
 # Gestion des boutons
 if predict_btn:
-    if not tweet_text:
+    if not session_state.tweet_text:
         st.warning("Veuillez entrer du texte.")
     else:
-        response = call_prediction_api(tweet_text)
+        response = call_prediction_api(session_state.tweet_text)
         if response.status_code == 200:
             data = response.json()
             display_prediction(data)
@@ -107,10 +108,10 @@ if predict_btn:
             st.error(f"Erreur API : {response.status_code}")
 
 if explain_btn:
-    if not tweet_text:
+    if not session_state.tweet_text:
         st.warning("Veuillez entrer du texte.")
     else:
-        response = call_explain_api(tweet_text)
+        response = call_explain_api(session_state.tweet_text)
         if response.status_code == 200:
             data = response.json()
             display_explanation(data)
