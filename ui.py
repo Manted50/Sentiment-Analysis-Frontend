@@ -119,4 +119,4 @@ if explain_btn:
             st.error(f"Erreur API : {response.status_code}")
 
 if delete_btn:
-    st.session_state["msg"] = ''
+    st.session_state.tweet_text = st.empty()
