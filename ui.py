@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import plotly.express as px
 
-#API_URL = "http://localhost:8000"
+API_URL = "https://sentiment-analysis-backend-g4h6.onrender.com/"
 
 # Onglet
 st.sidebar.title("ℹ️ Informations")
