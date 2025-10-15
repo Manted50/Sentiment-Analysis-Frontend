@@ -28,6 +28,13 @@ st.title("📝 Analyseur de sentiment")
 if "tweet_text" not in st.session_state:
     st.session_state.tweet_text = ""
 
+st.text_area(
+    "Entrez votre texte (max 280 caractères) :",
+    key="tweet_text",
+    max_chars=280,
+    placeholder="Tapez votre texte ici..."
+)
+
 col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
@@ -42,13 +49,6 @@ with col3:
 if delete_btn:
     st.session_state.tweet_text = ""
     st.rerun()
-
-st.text_area(
-    "Entrez votre texte (max 280 caractères) :",
-    key="tweet_text",
-    max_chars=280,
-    placeholder="Tapez votre texte ici..."
-)
 
 # Fonctions utilitaires
 def call_prediction_api(text):
