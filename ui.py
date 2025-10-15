@@ -28,6 +28,10 @@ st.title("📝 Analyseur de sentiment")
 if "tweet_text" not in st.session_state:
     st.session_state.tweet_text = ""
 
+if delete_btn:
+    st.session_state.tweet_text = ""
+    st.rerun()  # optional to refresh immediately
+
 st.text_area(
     "Entrez votre texte (max 280 caractères) :",
     key="tweet_text",
@@ -117,7 +121,3 @@ if explain_btn:
             display_explanation(data)
         else:
             st.error(f"Erreur API : {response.status_code}")
-
-if delete_btn:
-    st.session_state.tweet_text = ""
-    st.rerun() 
