@@ -25,7 +25,10 @@ for i, example in enumerate(example_tweets):
     if st.sidebar.button(f"Exemple {i + 1}"):
         st.session_state.tweet_text = example
 
-# Ensure the session state is updated before the widget is created
+if "_tweet_text" in st.session_state:
+    st.session_state.tweet_text = st.session_state._tweet_text
+    del st.session_state._tweet_text
+
 if "tweet_text" not in st.session_state:
     st.session_state.tweet_text = ""
 
@@ -51,6 +54,10 @@ with col3:
     delete_btn = st.button("❌ Effacer")
 
 # Fonctions utilitaires
+if delete_btn:
+    st.session_state._tweet_text = ""
+    st.rerun()
+
 def call_prediction_api(text):
     response = requests.post(
         f"{API_URL}/predict",
@@ -121,6 +128,3 @@ if explain_btn:
             display_explanation(data)
         else:
             st.error(f"Erreur API : {response.status_code}")
-
-if delete_btn:
-    st.session_state.tweet_text = ""
